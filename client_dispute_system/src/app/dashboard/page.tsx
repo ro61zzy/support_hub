@@ -69,43 +69,51 @@ export default function Dashboard() {
   }, [userId]);
 
   if (!userId) {
-    return <p>Getting your data...</p>;
+    return <p className="text-center mt-10 text-gray-600">Loading user data...</p>;
   }
 
   return (
-    <div className="max-w-4xl mx-auto p-6">
-      <h2 className="text-2xl font-semibold mb-4">Your Disputes</h2>
+<div className="max-w-6xl mx-auto p-6 bg-gray-100 min-h-screen">
 
+      {/* Header Section */}
+      <div className="flex justify-between items-center mb-6">
+        <h2 className="text-3xl font-semibold text-gray-800">Issues Dashboard</h2>
+        <button
+          className="bg-orange-500 text-white px-5 py-2 rounded-lg font-semibold shadow-md hover:bg-orange-600 transition"
+          onClick={() => router.push("/dashboard/create-dispute")}
+        >
+          + Create New Issue
+        </button>
+      </div>
+
+      {/* Error Message */}
       {errorMessage && (
-        <div className="bg-red-100 text-red-700 p-3 rounded mb-4">
+        <div className="bg-red-100 text-red-700 p-3 rounded mb-4 border border-red-400">
           {errorMessage}
         </div>
       )}
 
+      {/* Disputes Grid */}
       {loading ? (
-        <p>Loading disputes...</p>
+        <p className="text-center text-gray-600">Loading issues...</p>
       ) : disputes.length === 0 ? (
-        <p>No disputes found.</p>
+        <p className="text-center text-gray-500">No Issues found.</p>
       ) : (
-        <div className="space-y-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {disputes.map((dispute) => (
-            <div key={dispute.id} className="p-4 bg-white shadow-md rounded-lg">
-              <h3 className="text-lg font-bold">{dispute.title}</h3>
-              <p className="text-gray-600">{dispute.description}</p>
-              <p className="text-sm text-gray-500">
-                Status: <span className="font-semibold">{dispute.status}</span>
+            <div
+              key={dispute.id}
+              className="p-5 bg-white shadow-lg rounded-lg border border-gray-200"
+            >
+              <h3 className="text-lg font-bold text-gray-900">{dispute.title}</h3>
+              <p className="text-gray-600 text-sm mt-2">{dispute.description}</p>
+              <p className="mt-3 text-sm text-gray-500">
+                Status: <span className="font-semibold text-blue-600">{dispute.status}</span>
               </p>
             </div>
           ))}
         </div>
       )}
-
-      <button
-        className="mt-6 bg-orange-500 text-white px-4 py-2 rounded-lg font-semibold shadow-md hover:bg-orange-600 transition"
-        onClick={() => router.push("/dashboard/create-dispute")}
-      >
-        Create New Dispute
-      </button>
     </div>
   );
 }
