@@ -20,6 +20,8 @@ text.text
 /.next/
 /out/
 
+text.text
+
 # production
 /build
 
