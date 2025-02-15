@@ -16,20 +16,31 @@ export default function Home() {
         </div>
       </nav>
 
-      <section className="flex flex-col md:flex-row items-center justify-center text-center py-20 px-6">
-        <div className="md:w-1/2">
-          <h2 className="text-4xl font-bold text-gray-900">Resolve Disputes Seamlessly</h2>
-          <p className="mt-4 text-lg text-gray-700 max-w-xl mx-auto">
-            Our platform streamlines dispute resolution, ensuring fairness and transparency for all parties involved.
-          </p>
-          <Link href="/signup" className="mt-6 px-6 py-3 bg-orange-500 text-white text-lg rounded-lg shadow-md hover:bg-orange-700">
-            Get Started
-          </Link>
-        </div>
-        <div className="md:w-1/2 mt-8 md:mt-0">
-          <Image src="/landing_image.png" alt="Landing" width={500} height={300} className="rounded-lg shadow-md" />
-        </div>
-      </section>
+      <section className="relative w-full h-[80vh] flex items-center justify-center">
+  {/* Image Section (Set as Background) */}
+
+
+  {/* Text Section (On Top of Image) */}
+  <div className="relative z-10 w-3/4 lg:w-2/3  md:text-left pr-40 ">
+    <h2 className="text-5xl font-bold text-[#2458bf]  ">Resolve Issues Seamlessly</h2>
+    <p className="mt-4 text-2xl text-[#64676e] font-bold">
+      Our platform streamlines dispute resolution, ensuring fairness and transparency for all parties involved.
+    </p>
+    <Link href="/signup" className="mt-6 inline-block px-6 py-3 bg-orange-500 text-white text-lg rounded-lg shadow-md hover:bg-orange-700">
+      Get Started
+    </Link>
+  </div>
+  <div className="absolute right-0 lg:top-10 top-0 w-1/2 h-full">
+    <Image 
+      src="/hero_image.png" 
+      alt="Landing" 
+      layout="fill" 
+      objectFit="cover" 
+    />
+  </div>
+</section>
+
+
       <section className="py-16 bg-gray-100 text-center">
         <h3 className="text-3xl font-semibold text-gray-900">How It Works</h3>
         <div className="flex flex-wrap justify-center mt-8 gap-8">

@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: 'Dispute System',
+  title: 'Support Hub',
   description: 'Resolve disputes seamlessly',
 };
 
