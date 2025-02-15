@@ -8,7 +8,7 @@ export default function Home() {
     <div className="min-h-screen bg-white">
 
       <nav className="flex justify-between items-center p-6 shadow-md bg-white text-gray-900">
-        <h1 className="text-2xl font-bold">Dispute System</h1>
+        <h1 className="text-3xl font-bold">Support Hub</h1>
         <div>
           <Link href="/login" className="px-4 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600">
             Login / Sign Up
@@ -22,9 +22,9 @@ export default function Home() {
 
   {/* Text Section (On Top of Image) */}
   <div className="relative z-10 w-3/4 lg:w-2/3  md:text-left pr-40 ">
-    <h2 className="text-5xl font-bold text-[#2458bf]  ">Resolve Issues Seamlessly</h2>
-    <p className="mt-4 text-2xl text-[#64676e] font-bold">
-      Our platform streamlines dispute resolution, ensuring fairness and transparency for all parties involved.
+    <h2 className="text-5xl  font-bold text-[#2458bf]">Resolve Issues Seamlessly</h2>
+    <p className="mt-4 text-2xl text-[#b5b5b5] font-bold">
+    Get the support you need, when you need it.<br /> Support Hub helps you resolve issues quickly and efficiently.
     </p>
     <Link href="/signup" className="mt-6 inline-block px-6 py-3 bg-orange-500 text-white text-lg rounded-lg shadow-md hover:bg-orange-700">
       Get Started
