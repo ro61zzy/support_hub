@@ -9,11 +9,11 @@ const config: Config = {
     extend: {
       colors: {
         background: "#ffffff",
-        foreground: "#1a202c", // Example color values
+        foreground: "#1a202c", 
         primary: "#007bff", // Blue
         secondary: "#ff9900", // Orange
         accent: "#795548", // Brown
-        success: "#4caf50", // Green
+        success: "#4caf50", 
         buttons: "#f58c0e"
       },
     },
