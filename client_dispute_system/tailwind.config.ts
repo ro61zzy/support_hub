@@ -14,6 +14,7 @@ const config: Config = {
         secondary: "#ff9900", // Orange
         accent: "#795548", // Brown
         success: "#4caf50", // Green
+        buttons: "#f58c0e"
       },
     },
   },
