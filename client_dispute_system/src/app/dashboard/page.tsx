@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function Dashboard() {
   const router = useRouter();
@@ -101,16 +102,15 @@ export default function Dashboard() {
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {disputes.map((dispute) => (
-            <div
-              key={dispute.id}
-              className="p-5 bg-white shadow-lg rounded-lg border border-gray-200"
-            >
-              <h3 className="text-lg font-bold text-gray-900">{dispute.title}</h3>
-              <p className="text-gray-600 text-sm mt-2">{dispute.description}</p>
-              <p className="mt-3 text-sm text-gray-500">
-                Status: <span className="font-semibold text-blue-600">{dispute.status}</span>
-              </p>
-            </div>
+            <Link key={dispute.id} href={`/dashboard/issue_details/${dispute.id}`}>
+              <div className="p-5 bg-white shadow-lg rounded-lg border border-gray-200 cursor-pointer hover:shadow-xl transition">
+                <h3 className="text-lg font-bold text-gray-900">{dispute.title}</h3>
+                <p className="text-gray-600 text-sm mt-2">{dispute.description}</p>
+                <p className="mt-3 text-sm text-gray-500">
+                  Status: <span className="font-semibold text-blue-600">{dispute.status}</span>
+                </p>
+              </div>
+            </Link>
           ))}
         </div>
       )}
