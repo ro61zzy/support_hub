@@ -76,7 +76,7 @@ export default function Dashboard() {
   return (
 <div className="  p-6 bg-gray-100 min-h-screen">
 
-      {/* Header Section */}
+
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-3xl font-semibold text-buttons">My Issues </h2>
         <button
@@ -87,18 +87,18 @@ export default function Dashboard() {
         </button>
       </div>
 
-      {/* Error Message */}
+
       {errorMessage && (
         <div className="bg-red-100 text-red-700 p-3 rounded mb-4 border border-red-400">
           {errorMessage}
         </div>
       )}
 
-      {/* Disputes Grid */}
+
       {loading ? (
         <p className="text-center text-gray-600">Loading issues...</p>
       ) : disputes.length === 0 ? (
-        <p className="text-center text-gray-500">No Issues found.</p>
+        <p className="text-center text-gray-500">You have no current issues, create a new issue to get started.</p>
       ) : (
         <div className="grid grid-cols-4 gap-6">
           {disputes.map((dispute) => (
@@ -110,7 +110,7 @@ export default function Dashboard() {
                 <p className="text-gray-600 text-sm mt-2">{dispute.description.split(" ").slice(0, 7).join(" ")}...</p>
               </div>
                 <p className="mt-3 text-sm text-gray-500">
-                  Status: <span className="font-semibold text-blue-600">{dispute.status}</span>
+                  Status: <span className={`font-semibold ${dispute.status === "pending" ? "text-red-500" : "text-green-500"}`}>{dispute.status}</span>
                 </p>
               </div>
             </Link>

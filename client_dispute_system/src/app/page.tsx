@@ -17,10 +17,7 @@ export default function Home() {
       </nav>
 
       <section className="relative w-full h-[80vh] flex items-center justify-center">
-  {/* Image Section (Set as Background) */}
 
-
-  {/* Text Section (On Top of Image) */}
   <div className="relative z-10 w-3/4 lg:w-2/3  md:text-left pr-40 ">
     <h2 className="text-5xl  font-bold text-[#2458bf]">Resolve Issues Seamlessly</h2>
     <p className="mt-4 text-2xl text-[#b5b5b5] font-bold">

@@ -28,8 +28,7 @@ export default function AuthPage() {
         setErrorMessage(error.message);
         return;
       }
-  
-      // Fetch user role from the database
+
       const { data: userData, error: userError } = await supabase
         .from("users") 
         .select("role")
@@ -42,7 +41,7 @@ export default function AuthPage() {
       }
   
       const userRole = userData.role;
-        // Redirect based on role
+
     if (userRole === "admin") {
         router.push("/admin");
       } else {

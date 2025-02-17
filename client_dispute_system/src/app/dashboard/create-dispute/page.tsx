@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 
 export default function CreateDisputePage() {
   const [title, setTitle] = useState("");
-  const [invoiceNumber, setInvoiceNumber] = useState(""); // FIXED: Added useState
+  const [invoiceNumber, setInvoiceNumber] = useState(""); 
   const [description, setDescription] = useState("");
   const [reason, setReason] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
@@ -20,7 +20,7 @@ export default function CreateDisputePage() {
       return;
     }
 
-    // Fetch the current user
+
     const {
       data: { user },
       error,
@@ -31,15 +31,15 @@ export default function CreateDisputePage() {
       return;
     }
 
-    // Insert the dispute into the database
+    
     const { error: insertError } = await supabase.from("disputes").insert([
       {
-        user_id: user.id, // FIXED: Using user.id instead of userId
+        user_id: user.id,
         title,
         invoice_number: invoiceNumber,
         description,
         reason,
-        status: "pending", // Default status
+        status: "pending", 
       },
     ]);
 
@@ -48,14 +48,14 @@ export default function CreateDisputePage() {
       return;
     }
 
-    router.push("/dashboard"); // Redirect to the dashboard after submission
+    router.push("/dashboard"); 
   };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#f5f5f5]">
       <div className="max-w-3xl mx-auto p-6 bg-white shadow-lg rounded-lg mt-10">
         <h2 className="text-2xl font-bold text-gray-900 mb-4">
-          Create a New Dispute
+          Create a New Issue
         </h2>
 
         {errorMessage && (

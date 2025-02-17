@@ -29,6 +29,48 @@ export default function IssueDetailsPage() {
     status: string;
   };
 
+  const fetchComments = async () => {
+    const { data: commentsData, error: commentsError } = await supabase
+      .from("comments")
+      .select(
+        `
+        id, 
+        dispute_id, 
+        user_id, 
+        message, 
+        created_at
+      `
+      )
+      .eq("dispute_id", id)
+      .order("created_at", { ascending: true });
+
+    if (commentsError) {
+      console.error("Error fetching comments:", commentsError);
+      return;
+    }
+
+    const commentsWithUserDetails = await Promise.all(
+      commentsData?.map(async (comment) => {
+        const { data: userData, error: userError } = await supabase
+          .from("users")
+          .select("name")
+          .eq("id", comment.user_id)
+          .single();
+
+        if (userError) {
+          console.error("Error fetching user:", userError);
+        }
+
+        return {
+          ...comment,
+          users: userData ? { name: userData.name } : null,
+        };
+      }) ?? []
+    );
+
+    setComments(commentsWithUserDetails);
+  };
+
   useEffect(() => {
     if (!id) return;
 
@@ -39,30 +81,6 @@ export default function IssueDetailsPage() {
         .eq("id", id)
         .single();
       setDispute(data);
-    };
-
-    const fetchComments = async () => {
-      const { data } = await supabase
-        .from("comments")
-        .select(
-          `
-          id, 
-          dispute_id, 
-          user_id, 
-          message, 
-          created_at, 
-          users:users!comments_user_id_fkey(name)
-        `
-        )
-        .order("created_at", { ascending: true });
-
-      const formattedData =
-        data?.map((comment) => ({
-          ...comment,
-          users: comment.users?.[0] || null, // Extract first user or set to null
-        })) ?? [];
-
-      setComments(formattedData);
     };
 
     const fetchUser = async () => {
@@ -99,7 +117,10 @@ export default function IssueDetailsPage() {
       message: newComment,
     });
 
-    if (!error) setNewComment("");
+    if (!error) {
+      setNewComment("");
+      fetchComments();
+    }
   };
 
   if (!dispute)
@@ -110,57 +131,63 @@ export default function IssueDetailsPage() {
   return (
     <div className="h-screen flex items-center justify-center bg-white">
       <div className="max-w-5xl mx-auto p-6  flex flex-col md:flex-row w-full">
-        {/* Left: Issue Details */}
         <div className="w-full md:w-1/2 p-4 border-r">
-          <h2 className="text-3xl font-bold text-blue-500 mb-4">
+          <h2 className="text-3xl font-bold text-buttons mb-4">
             Issue Details
           </h2>
           <div className="flex mt-8">
             <div className="flex w-1/2 flex-col ">
-              <p className="text-lg text-gray-500">Title</p>
-              <p className="text-black  text-2xl">{dispute.title}</p>
+              <p className="text-sm text-gray-500">Title</p>
+              <p className="text-black  text-lg">{dispute.title}</p>
             </div>
 
             <div className="flex  w-1/2 flex-col ml-8">
-              <p className="text-lg text-gray-500">Invoice Number</p>
-              <p className="text-black text-2xl">{dispute.invoice_number}</p>
+              <p className="text-sm text-gray-500">Invoice Number</p>
+              <p className="text-black text-lg">{dispute.invoice_number}</p>
             </div>
           </div>
 
           <div className="flex mt-6 flex-col">
-            <p className="text-lg text-gray-500">Description</p>
-            <p className="text-black text-2xl">{dispute.description}</p>
+            <p className="text-sm text-gray-500">Description</p>
+            <p className="text-black text-lg">{dispute.description}</p>
           </div>
           <div className="flex mt-6 gap-52">
             <div className="flex flex-col">
-              <p className="text-lg text-gray-500">Reason</p>
-              <p className="text-black text-2xl">{dispute.reason}</p>
+              <p className="text-sm text-gray-500">Reason</p>
+              <p className="text-black text-lg">{dispute.reason}</p>
             </div>
 
             <div className="flex flex-col">
-              <p className="text-lg text-gray-500">Status</p>
-              <span className="px-2 text-black py-1 rounded">
+              <p className="text-sm text-gray-500">Status</p>
+              <span
+                className={` text-lg ${
+                  dispute.status === "pending"
+                    ? "text-red-500"
+                    : "text-green-500"
+                }`}
+              >
                 {dispute.status}
               </span>
             </div>
           </div>
         </div>
 
-        {/* Right: Chat/Log Section */}
-        <div className="w-full md:w-1/2 p-4">
-          <div className="h-[70vh] overflow-y-auto bg-[#a8e1ed] p-3 rounded flex flex-col">
+        <div className="w-full md:w-1/2 p-4 bg-[#E9F5F9]">
+          <div className="h-[70vh] overflow-y-auto p-3 rounded flex flex-col">
             {comments.map((comment) => (
               <div
                 key={comment.id}
                 className={`mb-4 p-3 border rounded-lg max-w-[80%] ${
                   comment.user_id === currentUser
-                    ? "ml-auto bg-[#5c27c4] text-white"
-                    : "mr-auto bg-gray-600 text-white"
+                    ? "ml-auto bg-[#fff] text-black"
+                    : "mr-auto bg-gray-100 text-black"
                 }`}
               >
-                <p className="text-sm font-bold">{comment.users?.name}</p>
+                <p className="text-sm text-[#007bff] font-bold">
+                  {comment.users?.name}
+                </p>
                 <p>{comment.message}</p>
-                <p className="text-xs text-gray-300">
+                <p className="text-xs text-buttons pt-1">
                   {new Date(comment.created_at).toLocaleString()}
                 </p>
               </div>
@@ -178,7 +205,14 @@ export default function IssueDetailsPage() {
               className="ml-2 bg-buttons text-white px-4 py-2 rounded hover:bg-blue-600"
               onClick={sendComment}
             >
-              Send
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                className="w-6 h-6"
+              >
+                <path d="M3.478 2.404a.75.75 0 0 0-.926.941l2.432 7.905H13.5a.75.75 0 0 1 0 1.5H4.984l-2.432 7.905a.75.75 0 0 0 .926.94 60.519 60.519 0 0 0 18.445-8.986.75.75 0 0 0 0-1.218A60.517 60.517 0 0 0 3.478 2.404Z" />
+              </svg>
             </button>
           </div>
         </div>
