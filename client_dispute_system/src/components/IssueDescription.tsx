@@ -129,38 +129,38 @@ export default function IssueDetailsPage() {
     );
 
   return (
-    <div className="h-screen flex items-center justify-center bg-white">
-      <div className="max-w-5xl mx-auto p-6  flex flex-col md:flex-row w-full">
-        <div className="w-full md:w-1/2 p-4 border-r">
-          <h2 className="text-3xl font-bold text-buttons mb-4">
-            Issue Details
-          </h2>
-          <div className="flex mt-8">
-            <div className="flex w-1/2 flex-col ">
-              <p className="text-sm text-gray-500">Title</p>
-              <p className="text-black  text-lg">{dispute.title}</p>
+    <div className="h-[100%] lg:h-[100vh] flex flex-col  sm:p-4 items-center justify-start bg-white">
+      <div className="max-w-5xl  p-4 flex flex-col md:flex-row w-full">
+        <div className="w-full md:w-1/2 p-4">
+          <h2 className="text-xl sm:text-3xl font-bold text-buttons mb-4">Issue Details</h2>
+
+          <div className="flex flex-row mt-8 gap-24">
+            <div className="flex flex-col md:w-1/2">
+              <p className="text-[12px] sm:text-sm text-gray-500">Title</p>
+              <p className="text-black text-md sm:text-lg" >{dispute.title}</p>
             </div>
 
-            <div className="flex  w-1/2 flex-col ml-8">
-              <p className="text-sm text-gray-500">Invoice Number</p>
+            <div className="flex flex-col md:w-1/2 mt-4 md:mt-0 ">
+              <p className="text-[12px] sm:text-sm text-gray-500">Invoice Number</p>
               <p className="text-black text-lg">{dispute.invoice_number}</p>
             </div>
           </div>
 
-          <div className="flex mt-6 flex-col">
-            <p className="text-sm text-gray-500">Description</p>
+          <div className="flex flex-col mt-6">
+            <p className="text-[12px] sm:text-sm text-gray-500">Description</p>
             <p className="text-black text-lg">{dispute.description}</p>
           </div>
-          <div className="flex mt-6 gap-52">
-            <div className="flex flex-col">
-              <p className="text-sm text-gray-500">Reason</p>
+
+          <div className="flex flex-row mt-6 gap-24 sm:gap-24">
+            <div className="flex flex-col md:w-1/2">
+              <p className="text-[12px] sm:text-sm text-gray-500">Reason</p>
               <p className="text-black text-lg">{dispute.reason}</p>
             </div>
 
-            <div className="flex flex-col">
-              <p className="text-sm text-gray-500">Status</p>
+            <div className="flex flex-col md:w-1/2">
+              <p className="text-[12px] sm:text-sm text-gray-500">Status</p>
               <span
-                className={` text-lg ${
+                className={`text-lg ${
                   dispute.status === "pending"
                     ? "text-red-500"
                     : "text-green-500"
@@ -172,7 +172,7 @@ export default function IssueDetailsPage() {
           </div>
         </div>
 
-        <div className="w-full md:w-1/2 p-4 bg-[#E9F5F9]">
+        <div className="w-full mt-4 sm:mt-0 md:w-1/2 p-4 bg-[#E9F5F9]">
           <div className="h-[70vh] overflow-y-auto p-3 rounded flex flex-col">
             {comments.map((comment) => (
               <div
@@ -186,23 +186,24 @@ export default function IssueDetailsPage() {
                 <p className="text-sm text-[#007bff] font-bold">
                   {comment.users?.name}
                 </p>
-                <p>{comment.message}</p>
+                <p className="text-sm sm:text-base">{comment.message}</p>
                 <p className="text-xs text-buttons pt-1">
                   {new Date(comment.created_at).toLocaleString()}
                 </p>
               </div>
             ))}
           </div>
-          <div className="mt-4 flex">
+
+          <div className="mt-4 flex flex-col md:flex-row">
             <input
               type="text"
               placeholder="Type a message..."
-              className="flex-1 text-black border p-2 rounded"
+              className="flex-1 text-black border p-2 rounded mb-4 md:mb-0"
               value={newComment}
               onChange={(e) => setNewComment(e.target.value)}
             />
             <button
-              className="ml-2 bg-buttons text-white px-4 py-2 rounded hover:bg-blue-600"
+              className="bg-buttons text-white px-4 py-2 rounded hover:bg-blue-600"
               onClick={sendComment}
             >
               <svg
