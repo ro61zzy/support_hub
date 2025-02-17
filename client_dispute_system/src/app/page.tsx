@@ -18,16 +18,29 @@ export default function Home() {
 
       <section className="relative w-full h-[80vh] flex items-center justify-center">
 
-  <div className="relative z-10 w-3/4 lg:w-2/3  md:text-left pr-40 ">
+  <div className="relative z-10 w-full sm:w-3/4 lg:w-2/3  text-center  sm:text-left sm:pr-40 ">
     <h2 className="text-5xl  font-bold text-[#2458bf]">Resolve Issues Seamlessly</h2>
-    <p className="mt-4 text-2xl text-[#b5b5b5] font-bold">
+    <p className="mt-4 text-2xl text-black sm:text-[#c0bfbf] font-bold">
     Get the support you need, when you need it.<br /> Support Hub helps you resolve issues quickly and efficiently.
     </p>
     <Link href="/auth" className="mt-6 inline-block px-6 py-3 bg-buttons text-white text-lg rounded-lg shadow-md hover:bg-orange-700">
       Get Started
     </Link>
   </div>
-  <div className="absolute right-0 lg:top-10 top-0 w-1/2 h-full">
+
+{/* 
+  <div className="relative z-10  w-full md:w-3/4 lg:w-2/3 text-center md:text-left md:pr-40">
+          <h2 className="text-4xl md:text-5xl font-bold text-[#2458bf]">Resolve Issues Seamlessly</h2>
+          <p className="mt-4 text-lg md:text-2xl text-[#b5b5b5] font-bold">
+            Get the support you need, when you need it.<br />
+            Support Hub helps you resolve issues quickly and efficiently.
+          </p>
+          <Link href="/auth" className="mt-6 inline-block px-6 py-3 bg-buttons text-white text-lg rounded-lg shadow-md hover:bg-orange-700">
+            Get Started
+          </Link>
+        </div> */}
+
+  <div className="absolute opacity-25 sm:opacity-95 right-0 lg:top-10 top-0 sm:w-1/2  w-full h-full">
     <Image 
       src="/hero_image.png" 
       alt="Landing" 
@@ -35,6 +48,7 @@ export default function Home() {
       objectFit="cover" 
     />
   </div>
+ 
 </section>
 
 
