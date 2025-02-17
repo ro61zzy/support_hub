@@ -78,7 +78,7 @@ export default function Dashboard() {
 
       {/* Header Section */}
       <div className="flex justify-between items-center mb-6">
-        <h2 className="text-3xl font-semibold text-gray-800">Issues Dashboard</h2>
+        <h2 className="text-3xl font-semibold text-buttons">My Issues </h2>
         <button
           className="bg-orange-500 text-white px-5 py-2 rounded-lg font-semibold shadow-md hover:bg-orange-600 transition"
           onClick={() => router.push("/dashboard/create-dispute")}
@@ -100,12 +100,15 @@ export default function Dashboard() {
       ) : disputes.length === 0 ? (
         <p className="text-center text-gray-500">No Issues found.</p>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-4 gap-6">
           {disputes.map((dispute) => (
             <Link key={dispute.id} href={`/dashboard/issue_details/${dispute.id}`}>
-              <div className="p-5 bg-white shadow-lg rounded-lg border border-gray-200 cursor-pointer hover:shadow-xl transition">
-                <h3 className="text-lg font-bold text-gray-900">{dispute.title}</h3>
-                <p className="text-gray-600 text-sm mt-2">{dispute.description}</p>
+              <div className="p-4 bg-white shadow-lg rounded-lg border border-gray-200 w-[100%] h-40 cursor-pointer hover:shadow-xl transition">
+              <div className="flex-grow">
+
+                <h3 className="text-lg font-bold text-gray-900">{dispute.title.split(" ").slice(0, 4).join(" ")}...</h3>
+                <p className="text-gray-600 text-sm mt-2">{dispute.description.split(" ").slice(0, 7).join(" ")}...</p>
+              </div>
                 <p className="mt-3 text-sm text-gray-500">
                   Status: <span className="font-semibold text-blue-600">{dispute.status}</span>
                 </p>
