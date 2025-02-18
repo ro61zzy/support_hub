@@ -1,9 +1,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { supabase } from "@/lib/supabase";
+import { supabase } from "@/utils/supabase/client";
 import Link from "next/link";
 import CustomIcon from "@/components/CustomIcon";
+import { useRouter } from "next/navigation";
 
 interface Issue {
   id: number;
@@ -14,8 +15,44 @@ interface Issue {
 }
 
 export default function AdminDashboard() {
+  const router = useRouter();
   const [issues, setIssues] = useState<Issue[]>([]);
   const [loading, setLoading] = useState(true);
+  const [userId, setUserId] = useState<string | null>(null);
+
+  useEffect(() => {
+    async function getUserData() {
+      try {
+        const {
+          data: { user },
+          error,
+        } = await supabase.auth.getUser();
+
+        if (error || !user) {
+          router.push("/auth");
+          return;
+        }
+
+        const { data, error: userError } = await supabase
+          .from("users")
+          .select("id")
+          .eq("email", user.email)
+          .single();
+
+        if (userError || !data) {
+          console.error("Error fetching user data:", userError);
+          router.push("/auth");
+          return;
+        }
+
+        setUserId(data.id);
+      } catch (err) {
+        console.error("Unexpected error fetching user data:", err);
+      }
+    }
+
+    getUserData();
+  }, [router]);
 
   useEffect(() => {
     const fetchIssues = async () => {
