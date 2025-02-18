@@ -6,7 +6,6 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Loader from "@/components/Loader";
 
-
 export default function Dashboard() {
   const router = useRouter();
   const [userId, setUserId] = useState<string | null>(null);
@@ -72,15 +71,15 @@ export default function Dashboard() {
   }, [userId]);
 
   if (!userId) {
-    return <Loader />
+    return <Loader />;
   }
 
   return (
-<div className="  p-6 bg-gray-100 min-h-screen">
-
-
+    <div className="  p-6 bg-gray-100 min-h-screen">
       <div className="flex justify-between items-center mb-6">
-        <h2 className="text-xl sm:text-3xl font-semibold text-buttons">My Issues </h2>
+        <h2 className="text-xl sm:text-3xl font-semibold text-buttons">
+          My Issues{" "}
+        </h2>
         <button
           className="bg-orange-500 text-white px-4 sm:px-5 py-1 sm:py-2 text-sm tx-lg rounded-lg font-semibold shadow-md hover:bg-orange-600 transition "
           onClick={() => router.push("/dashboard/create-dispute")}
@@ -89,30 +88,45 @@ export default function Dashboard() {
         </button>
       </div>
 
-
       {errorMessage && (
         <div className="bg-red-100 text-red-700 p-3 rounded mb-4 border border-red-400">
           {errorMessage}
         </div>
       )}
 
-
       {loading ? (
-        <p className="text-center text-gray-600">Loading issues...</p>
+        <Loader />
       ) : disputes.length === 0 ? (
-        <p className="text-center text-gray-500">You have no current issues, create a new issue to get started.</p>
+        <p className="text-center text-gray-500">
+          You have no current issues, create a new issue to get started.
+        </p>
       ) : (
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
           {disputes.map((dispute) => (
-            <Link key={dispute.id} href={`/dashboard/issue_details/${dispute.id}`}>
+            <Link
+              key={dispute.id}
+              href={`/dashboard/issue_details/${dispute.id}`}
+            >
               <div className="p-4 bg-white shadow-lg rounded-lg border border-gray-200 w-[100%] h-40 cursor-pointer hover:shadow-xl transition">
-              <div className="flex-grow">
-
-                <h3 className="text-lg font-bold text-gray-900">{dispute.title.split(" ").slice(0, 4).join(" ")}...</h3>
-                <p className="text-gray-600 text-sm mt-2">{dispute.description.split(" ").slice(0, 6).join(" ")}...</p>
-              </div>
+                <div className="flex-grow">
+                  <h3 className="text-lg font-bold text-gray-900">
+                    {dispute.title.split(" ").slice(0, 4).join(" ")}...
+                  </h3>
+                  <p className="text-gray-600 text-sm mt-2">
+                    {dispute.description.split(" ").slice(0, 6).join(" ")}...
+                  </p>
+                </div>
                 <p className="mt-3 text-[12px] text-gray-500">
-                  Status: <span className={`font-semibold ${dispute.status === "pending" ? "text-red-500" : "text-green-500"}`}>{dispute.status}</span>
+                  Status:{" "}
+                  <span
+                    className={`font-semibold ${
+                      dispute.status === "pending"
+                        ? "text-red-500"
+                        : "text-green-500"
+                    }`}
+                  >
+                    {dispute.status}
+                  </span>
                 </p>
               </div>
             </Link>
