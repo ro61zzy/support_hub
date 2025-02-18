@@ -129,38 +129,38 @@ export default function IssueDetailsPage() {
     );
 
   return (
-    <div className="h-[100%] lg:h-[100vh] flex flex-col  sm:p-4 items-center justify-start bg-white">
+    <div className="h-[100%] sm:h-[100vh] md:h-[100vh] lg:h-[100%] xl:h-[100vh] flex flex-col  sm:p-4 items-center justify-start bg-white">
       <div className="max-w-5xl  p-4 flex flex-col md:flex-row w-full">
         <div className="w-full md:w-1/2 p-4">
           <h2 className="text-xl sm:text-3xl font-bold text-buttons mb-4">Issue Details</h2>
 
-          <div className="flex flex-row mt-8 gap-24">
+          <div className="flex flex-row  mt-8 gap-24">
             <div className="flex flex-col md:w-1/2">
-              <p className="text-[12px] sm:text-sm text-gray-500">Title</p>
-              <p className="text-black text-md sm:text-lg" >{dispute.title}</p>
+              <p className="text-[11px] sm:text-sm text-gray-500">Title</p>
+              <p className="text-black text-[14px] sm:text-lg" >{dispute.title}</p>
             </div>
 
-            <div className="flex flex-col md:w-1/2 mt-4 md:mt-0 ">
-              <p className="text-[12px] sm:text-sm text-gray-500">Invoice Number</p>
-              <p className="text-black text-lg">{dispute.invoice_number}</p>
+            <div className="flex flex-col  md:w-1/2 sm:mt-4 md:mt-0 ">
+              <p className="text-[11px] sm:text-sm text-gray-500">Invoice No:</p>
+              <p className="text-black text-[14px]">{dispute.invoice_number}</p>
             </div>
           </div>
 
           <div className="flex flex-col mt-6">
-            <p className="text-[12px] sm:text-sm text-gray-500">Description</p>
-            <p className="text-black text-lg">{dispute.description}</p>
+            <p className="text-[11px] sm:text-sm text-gray-500">Description</p>
+            <p className="text-black text-[14px]">{dispute.description}</p>
           </div>
 
           <div className="flex flex-row mt-6 gap-24 sm:gap-24">
             <div className="flex flex-col md:w-1/2">
-              <p className="text-[12px] sm:text-sm text-gray-500">Reason</p>
-              <p className="text-black text-lg">{dispute.reason}</p>
+              <p className="text-[11px] sm:text-sm text-gray-500">Reason</p>
+              <p className="text-black text-[14px]">{dispute.reason}</p>
             </div>
 
             <div className="flex flex-col md:w-1/2">
-              <p className="text-[12px] sm:text-sm text-gray-500">Status</p>
+              <p className="text-[11px] sm:text-sm text-gray-500">Status</p>
               <span
-                className={`text-lg ${
+                className={`text-[14px] ${
                   dispute.status === "pending"
                     ? "text-red-500"
                     : "text-green-500"

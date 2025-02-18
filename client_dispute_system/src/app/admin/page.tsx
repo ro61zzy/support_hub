@@ -35,15 +35,15 @@ export default function AdminDashboard() {
 
   return (
     <div className="p-6 min-h-screen bg-gray-100 text-gray-900">
-      <h1 className="text-3xl font-bold mb-6 text-buttons">Submitted Issues</h1>
+      <h1 className="text-2xl sm:text-3xl font-bold mb-6 text-buttons">Submitted Issues</h1>
 
       {loading ? (
         <p className="text-center">Loading issues...</p>
       ) : (
-        <div className="grid grid-cols-4 md:grid-cols-4 gap-8">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6">
           {issues.map((issue) => (
             <Link href={`/admin/issue_details/${issue.id}`} key={issue.id}>
-              <div className="bg-white p-4 border rounded-lg shadow-lg w-full md:w-[100%] h-40 mx-auto flex flex-col relative">
+              <div className="bg-white p-4 border rounded-lg shadow-lg w-full md:w-[100%] h-44 mx-auto flex flex-col relative">
                 <div className="flex-grow">
                   <h2 className="text-lg font-semibold line-clamp-2">
                     {issue.title.split(" ").slice(0, 4).join(" ")}...
@@ -54,7 +54,7 @@ export default function AdminDashboard() {
                 </div>
                 <div className="flex items-center justify-between mt-auto">
                   <span
-                    className={`flex items-center gap-2 px-1 text-white text-xs font-semibold uppercase ${
+                    className={`flex gap-1 items-center text-black text-[10px] sm:text-xs  font-semibold uppercase ${
                       issue.status === "pending"
                         ? "text-red-500"
                         : "text-green-500"
@@ -72,7 +72,7 @@ export default function AdminDashboard() {
 
                   {issue.status !== "resolved" && (
                     <button
-                      className="bg-green-500 text-white px-2 py-1 rounded text-sm"
+                      className="bg-green-500 text-white px-2 py-1 rounded text-[12px] sm:text-sm"
                       onClick={async (e) => {
                         e.preventDefault();
                         const { error } = await supabase
