@@ -5,6 +5,7 @@ import { supabase } from "@/utils/supabase/client";
 import Link from "next/link";
 import CustomIcon from "@/components/CustomIcon";
 import { useRouter } from "next/navigation";
+import Loader from "@/components/Loader";
 
 interface Issue {
   id: number;
@@ -75,7 +76,7 @@ export default function AdminDashboard() {
       <h1 className="text-2xl sm:text-3xl font-bold mb-6 text-buttons">Submitted Issues</h1>
 
       {loading ? (
-        <p className="text-center">Loading issues...</p>
+       <Loader />
       ) : (
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6">
           {issues.map((issue) => (

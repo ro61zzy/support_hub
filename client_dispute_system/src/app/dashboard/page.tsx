@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import { supabase } from "@/utils/supabase/client";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import Loader from "@/components/Loader";
+
 
 export default function Dashboard() {
   const router = useRouter();
@@ -70,7 +72,7 @@ export default function Dashboard() {
   }, [userId]);
 
   if (!userId) {
-    return <p className="text-center mt-10 text-gray-600">Loading user data...</p>;
+    return <Loader />
   }
 
   return (
